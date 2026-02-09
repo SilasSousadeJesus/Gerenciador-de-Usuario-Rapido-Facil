@@ -77,7 +77,7 @@ namespace Usuario_Rapido_Facil.Api
             {
                 options.AddDefaultPolicy(builder =>
                 {
-                    builder.WithOrigins("http://localhost:3000")
+                    builder.WithOrigins("https://rapido-facil-front-end-production.up.railway.app")
                            .AllowAnyMethod()
                            .AllowAnyHeader()
                            .AllowCredentials();
