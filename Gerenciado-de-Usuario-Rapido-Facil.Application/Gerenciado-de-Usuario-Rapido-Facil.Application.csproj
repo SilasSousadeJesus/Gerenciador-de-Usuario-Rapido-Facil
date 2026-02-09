@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>Gerenciado_de_Usuario_Rapido_Facil.Application</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="PdfPig" Version="0.1.9" />
+    <PackageReference Include="RestSharp" Version="112.1.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Gerenciado-de-Usuario-Rapido-Facil.Domain\Gerenciado-de-Usuario-Rapido-Facil.Domain.csproj" />
+    <ProjectReference Include="..\Gerenciado-de-Usuario-Rapido-Facil.CrossCutting\Gerenciado-de-Usuario-Rapido-Facil.CrossCutting.csproj" />  
+    <ProjectReference Include="..\Gerenciado-de-Usuario-Rapido-Facil.Infra\Gerenciado-de-Usuario-Rapido-Facil.Infra.csproj" />
+  </ItemGroup>
+
+</Project>
