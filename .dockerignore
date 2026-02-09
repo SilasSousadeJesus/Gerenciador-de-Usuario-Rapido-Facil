@@ -1,10 +1,17 @@
-**/bin/
-**/obj/
-**/.vs/
-**/.vscode/
-**/node_modules/
+# lixo de build
+**/bin
+**/obj
+**/.vs
+**/.vscode
+**/node_modules
 
+# git (não precisa no container)
 .git
-.gitignore
-README.md
-LICENSE
+
+# NÃO ignore o código-fonte
+!Gerenciador-de-Usuario-Rapido-Facil.sln
+!Gerenciado-de-Usuario-Rapido-Facil.Api/**
+!Gerenciado-de-Usuario-Rapido-Facil.Application/**
+!Gerenciado-de-Usuario-Rapido-Facil.Domain/**
+!Gerenciado-de-Usuario-Rapido-Facil.Infra/**
+!Gerenciado-de-Usuario-Rapido-Facil.CrossCutting/**
