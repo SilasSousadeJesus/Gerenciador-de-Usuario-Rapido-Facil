@@ -1,7 +1,7 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-COPY Gerenciador-de-Usuario-Rapido-Facil.sln .
+COPY Gerenciado-de-Usuario-Rapido-Facil.sln .
 
 COPY Gerenciado-de-Usuario-Rapido-Facil.Api/*.csproj Gerenciado-de-Usuario-Rapido-Facil.Api/
 COPY Gerenciado-de-Usuario-Rapido-Facil.Application/*.csproj Gerenciado-de-Usuario-Rapido-Facil.Application/
