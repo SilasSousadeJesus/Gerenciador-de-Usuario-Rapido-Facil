@@ -1,9 +1,0 @@
-{
-  "build": {
-    "builder": "dotnet",
-    "buildCommand": "dotnet restore Gerenciador-de-Usuario-Rapido-Facil.sln && dotnet publish Gerenciado-de-Usuario-Papido-Facil.Api/Gerenciado-de-Usuario-Papido-Facil.Api.csproj -c Release -o out"
-  },
-  "deploy": {
-    "startCommand": "dotnet out/Gerenciado-de-Usuario-Papido-Facil.Api.dll"
-  }
-}
