@@ -26,8 +26,4 @@
 		<ProjectReference Include="..\Gerenciado-de-Usuario-Rapido-Facil.Domain\Gerenciado-de-Usuario-Rapido-Facil.Domain.csproj" />
 	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
 </Project>
