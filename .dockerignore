@@ -1,17 +1,5 @@
-# lixo de build
-**/bin
-**/obj
-**/.vs
-**/.vscode
-**/node_modules
-
-# git (não precisa no container)
-.git
-
-# NÃO ignore o código-fonte
-!Gerenciador-de-Usuario-Rapido-Facil.sln
-!Gerenciado-de-Usuario-Rapido-Facil.Api/**
-!Gerenciado-de-Usuario-Rapido-Facil.Application/**
-!Gerenciado-de-Usuario-Rapido-Facil.Domain/**
-!Gerenciado-de-Usuario-Rapido-Facil.Infra/**
-!Gerenciado-de-Usuario-Rapido-Facil.CrossCutting/**
+# Remova as linhas com "!" por enquanto para testar
+bin/
+obj/
+.vs/
+.vscode/
