@@ -1,4 +1,5 @@
-﻿using Gerenciado_de_Usuario_Rapido_Facil.Domain.Entities;
+﻿using Gerenciado_de_Usuario_Rapido_Facil.CrossCutting.Util.Enum;
+using Gerenciado_de_Usuario_Rapido_Facil.Domain.Entities;
 using Gerenciado_de_Usuario_Rapido_Facil.Infra.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,24 +15,58 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Infra.Data.Repositories
             _context = context;
         }
 
-        public async Task<List<Condominio>> BuscarTodosOsCondominiosAsync()
+        public async Task<List<Condominio>> BuscarTodosOsCondominiosAsync(string nome, string email, string cnpj, string codigoVinculacao, string cidade, string estado, bool? ativo, bool? periodoTeste, DateTime? dataCadastro, int pagina, int itensPorPagina)
         {
-            return await _context.Set<Condominio>()
-                                          .Select(c => new Condominio
-                                          {
-                                              Id = c.Id,
-                                              Nome = c.Nome,
-                                              CnpjCpf = c.CnpjCpf,
-                                              Email = c.Email,
-                                              Senha = string.Empty, 
-                                              Ativo = c.Ativo,
-                                              CodigoVinculacao = c.CodigoVinculacao,
-                                              Rua = c.Rua,
-                                              Bairro = c.Bairro,
-                                              Cidade = c.Cidade,
-                                              Estado = c.Estado
-                                          })
-                                          .ToListAsync();
+            var query = _context.Set<Condominio>().AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(nome))
+                query = query.Where(c => c.Nome.Contains(nome));
+
+            if (!string.IsNullOrWhiteSpace(email))
+                query = query.Where(c => c.Email.Contains(email));
+
+            if (!string.IsNullOrWhiteSpace(cnpj))
+                query = query.Where(c => c.CnpjCpf == cnpj);
+
+            if (!string.IsNullOrWhiteSpace(codigoVinculacao))
+                query = query.Where(c => c.CodigoVinculacao == codigoVinculacao);
+
+            if (!string.IsNullOrWhiteSpace(cidade))
+                query = query.Where(c => c.Cidade == cidade);
+
+            if (!string.IsNullOrWhiteSpace(estado))
+                query = query.Where(c => c.Estado == estado);
+
+            if (ativo.HasValue)
+                query = query.Where(c => c.Ativo == ativo.Value);
+
+            if (periodoTeste.HasValue)
+                query = query.Where(c => c.PeriodoTeste == periodoTeste.Value);
+
+            if (dataCadastro.HasValue && dataCadastro.Value != DateTime.MinValue)
+                query = query.Where(c => c.DataCadastro.Date == dataCadastro.Value.Date);
+
+           var listaCondominios =   await query
+                .AsNoTracking()
+                .Select(c => new Condominio
+                {
+                    Id = c.Id,
+                    Nome = c.Nome,
+                    CnpjCpf = c.CnpjCpf,
+                    Email = c.Email,
+                    Senha = string.Empty,
+                    Ativo = c.Ativo,
+                    CodigoVinculacao = c.CodigoVinculacao,
+                    Rua = c.Rua,
+                    Bairro = c.Bairro,
+                    Cidade = c.Cidade,
+                    Estado = c.Estado
+                })
+                .Skip((pagina - 1) * itensPorPagina) 
+                .Take(itensPorPagina)
+                .ToListAsync();
+
+            return listaCondominios;
         }
         public async Task<Condominio?> BuscarUmCondominioAsync(Guid condominioId)
         {
@@ -141,6 +176,5 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Infra.Data.Repositories
 
             return condominos;
         }
-
     }
 }

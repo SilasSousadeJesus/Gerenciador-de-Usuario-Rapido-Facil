@@ -110,10 +110,21 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Application.Services
             }
         }
 
-        public async Task<RetornoGenerico> BuscarTodosOsCondominioAsync()
+        public async Task<RetornoGenerico> BuscarTodosOsCondominioAsync(BuscarCondominioPorFiltrosDTO filtros)
         {
-
-            var condominios = await _condominioRepository.BuscarTodosOsCondominiosAsync();
+            var condominios = await _condominioRepository.BuscarTodosOsCondominiosAsync(
+                filtros.nome, 
+                filtros.Cnpj,
+                filtros.email,
+                filtros.CodigoVinculacao, 
+                filtros.Cidade, 
+                filtros.Estado, 
+                filtros.ativo,
+                filtros.PeriodoTeste,
+                filtros.dataCadastro, 
+                filtros.pagina, 
+                filtros.itensPorPagina
+               );
 
             var mensagem = condominios.Count > 0 ? $"{condominios.Count} condominios cadastrados" : "Não há condominios cadastrados";
             var sucesso = condominios.Count > 0;

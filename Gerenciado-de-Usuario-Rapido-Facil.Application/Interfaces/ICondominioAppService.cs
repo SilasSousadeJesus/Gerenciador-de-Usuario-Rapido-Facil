@@ -7,7 +7,7 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Application.Interfaces
     public interface ICondominioAppService
     {
         Task<RetornoGenerico> CadastrarCondominioAsync(CadastroCondominioDTO condominioDTO);
-        Task<RetornoGenerico> BuscarTodosOsCondominioAsync();
+        Task<RetornoGenerico> BuscarTodosOsCondominioAsync(BuscarCondominioPorFiltrosDTO filtros);
         Task<RetornoGenerico> BuscarUmCondominioAsync(Guid condominioId);
         Task<CondominioViewModel?> BuscarUmCondominioPorEmailAsync(string email);
         Task<RetornoGenerico> DeletarCondominioAsync(Guid condominioId);

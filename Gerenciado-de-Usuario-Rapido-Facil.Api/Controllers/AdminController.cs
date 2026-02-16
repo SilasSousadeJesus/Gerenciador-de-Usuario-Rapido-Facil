@@ -1,4 +1,5 @@
-﻿using Gerenciado_de_Usuario_Rapido_Facil.Application.Interfaces;
+﻿using Gerenciado_de_Usuario_Rapido_Facil.Application.DTOs;
+using Gerenciado_de_Usuario_Rapido_Facil.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Usuario_Rapido_Facil.Api.Controllers
@@ -15,10 +16,10 @@ namespace Usuario_Rapido_Facil.Api.Controllers
 
 
         [HttpGet("BuscarTodos")]
-        public async Task<IActionResult> BuscarTodosOsCondominio()
+        public async Task<IActionResult> BuscarTodosOsCondominio([FromQuery] BuscarCondominioPorFiltrosDTO filtros)
         {
 
-            var dados = await _condominioAppService.BuscarTodosOsCondominioAsync();
+            var dados = await _condominioAppService.BuscarTodosOsCondominioAsync(filtros);
 
             if (!dados.Sucesso)
             {
