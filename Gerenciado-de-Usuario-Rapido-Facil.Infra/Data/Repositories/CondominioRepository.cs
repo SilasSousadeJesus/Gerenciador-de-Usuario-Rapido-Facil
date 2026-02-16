@@ -16,7 +16,7 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Infra.Data.Repositories
             _context = context;
         }
 
-        public async Task<PaginacaoDeResultados> BuscarTodosOsCondominiosAsync(string nome, string email, string cnpj, string codigoVinculacao, string cidade, string estado, bool? ativo, bool? periodoTeste, DateTime? dataCadastro, int pagina, int itensPorPagina)
+        public async Task<PaginacaoDeResultados> BuscarTodosOsCondominiosAsync(string nome, string email, string cnpj, string codigoVinculacao, string cidade, string estado, string ativo, string periodoTeste, DateTime? dataCadastro, int pagina, int itensPorPagina)
         {
             var query = _context.Set<Condominio>().AsQueryable();
 
@@ -26,8 +26,10 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Infra.Data.Repositories
             if (!string.IsNullOrWhiteSpace(codigoVinculacao)) query = query.Where(c => c.CodigoVinculacao == codigoVinculacao);
             if (!string.IsNullOrWhiteSpace(cidade)) query = query.Where(c => c.Cidade == cidade);
             if (!string.IsNullOrWhiteSpace(estado)) query = query.Where(c => c.Estado == estado);
-            if (ativo.HasValue) query = query.Where(c => c.Ativo == ativo.Value);
-            if (periodoTeste.HasValue) query = query.Where(c => c.PeriodoTeste == periodoTeste.Value);
+            if (!string.IsNullOrWhiteSpace(estado)) query = query.Where(c => c.Estado == estado);
+            if (!string.IsNullOrWhiteSpace(ativo)) query = query.Where(c => ativo == "true" ?  c.Ativo == true : c.Ativo == false);
+            if (!string.IsNullOrWhiteSpace(periodoTeste)) query = query.Where(c => periodoTeste == "true" ? c.PeriodoTeste == true : c.PeriodoTeste == false);
+
             if (dataCadastro.HasValue && dataCadastro.Value != DateTime.MinValue)
                 query = query.Where(c => c.DataCadastro.Date == dataCadastro.Value.Date);
 

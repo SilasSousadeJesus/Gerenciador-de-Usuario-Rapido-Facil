@@ -10,7 +10,7 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Infra.Data.Interfaces
 
         Task<Condominio?> BuscarPorCodigoVinculacaoAsync(string codigo);
 
-        Task<PaginacaoDeResultados> BuscarTodosOsCondominiosAsync(string nome, string email, string cnpj, string codigoVinculacao, string cidade, string estado, bool? ativo, bool? periodoTeste, DateTime? dataCadastro, int pagina, int itensPorPagina);
+        Task<PaginacaoDeResultados> BuscarTodosOsCondominiosAsync(string nome, string email, string cnpj, string codigoVinculacao, string cidade, string estado, string ativo, string periodoTeste, DateTime? dataCadastro, int pagina, int itensPorPagina);
 
         Task<Condominio?> BuscarUmCondominioAsync(Guid condominioId);
 
