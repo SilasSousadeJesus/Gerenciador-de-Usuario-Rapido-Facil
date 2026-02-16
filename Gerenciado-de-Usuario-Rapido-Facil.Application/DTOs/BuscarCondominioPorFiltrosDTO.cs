@@ -10,8 +10,8 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Application.DTOs
         public string CodigoVinculacao { get; set; } = string.Empty;
         public string Cidade { get; set; } = string.Empty;
         public string Estado { get; set; } = string.Empty;
-        public string ativo { get; set; } = null;
-        public string PeriodoTeste { get; set; } = null;
+        public string ativo { get; set; } = string.Empty;
+        public string PeriodoTeste { get; set; } = string.Empty;
         public DateTime dataCadastro { get; set; }
         public int pagina { get; set; } = 1;
         public int itensPorPagina { get; set; } = 10;
