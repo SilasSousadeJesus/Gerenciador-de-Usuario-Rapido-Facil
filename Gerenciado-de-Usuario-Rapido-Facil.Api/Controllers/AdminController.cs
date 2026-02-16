@@ -1,6 +1,4 @@
-﻿using Gerenciado_de_Usuario_Rapido_Facil.Application.DTOs;
-using Gerenciado_de_Usuario_Rapido_Facil.Application.Interfaces;
-using Microsoft.AspNetCore.Http;
+﻿using Gerenciado_de_Usuario_Rapido_Facil.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Usuario_Rapido_Facil.Api.Controllers
@@ -9,31 +7,32 @@ namespace Usuario_Rapido_Facil.Api.Controllers
     [ApiController]
     public class AdminController : ControllerBase
     {
-        private readonly ICondominioAppService _appService;
+        private readonly ICondominioAppService _condominioAppService;
         public AdminController(ICondominioAppService condominioAppService)
         {
-            _appService = condominioAppService;
+            _condominioAppService = condominioAppService;
         }
 
 
-        //[HttpPost("CriarCondominio")]
-        //public async Task<IActionResult> CriarCondominio([FromBody] CadastroCondominioDTO condominioDTO)
-        //{
-        //    var dados = await _appService.CadastrarCondominioAsync(condominioDTO);
+        [HttpGet("BuscarTodos")]
+        public async Task<IActionResult> BuscarTodosOsCondominio()
+        {
 
-        //    if (!dados.Sucesso)
-        //    {
-        //        return dados.HttpStatusCode switch
-        //        {
-        //            System.Net.HttpStatusCode.Unauthorized => Unauthorized(dados),
-        //            System.Net.HttpStatusCode.NotFound => NotFound(dados),
-        //            System.Net.HttpStatusCode.BadRequest => BadRequest(dados),
-        //            System.Net.HttpStatusCode.InternalServerError => StatusCode(500, dados),
-        //            _ => BadRequest(dados)
-        //        };
-        //    }
+            var dados = await _condominioAppService.BuscarTodosOsCondominioAsync();
 
-        //    return Created("criado", dados);
-        //}
+            if (!dados.Sucesso)
+            {
+                return dados.HttpStatusCode switch
+                {
+                    System.Net.HttpStatusCode.Unauthorized => Unauthorized(dados),
+                    System.Net.HttpStatusCode.NotFound => NotFound(dados),
+                    System.Net.HttpStatusCode.BadRequest => BadRequest(dados),
+                    System.Net.HttpStatusCode.InternalServerError => StatusCode(500, dados),
+                    _ => BadRequest(dados)
+                };
+            }
+
+            return Ok(dados);
+        }
     }
 }

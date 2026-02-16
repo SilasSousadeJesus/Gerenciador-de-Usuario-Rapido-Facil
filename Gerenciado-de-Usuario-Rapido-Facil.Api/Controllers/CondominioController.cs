@@ -57,27 +57,6 @@ namespace Usuario_Rapido_Facil.Api.Controllers
             return Ok(dados);
         }
 
-        [HttpGet("BuscarTodos")]
-        public async Task<IActionResult> BuscarTodosOsCondominio()
-        {
-
-            var dados = await _appService.BuscarTodosOsCondominioAsync();
-
-            if (!dados.Sucesso)
-            {
-                return dados.HttpStatusCode switch
-                {
-                    System.Net.HttpStatusCode.Unauthorized => Unauthorized(dados),
-                    System.Net.HttpStatusCode.NotFound => NotFound(dados),
-                    System.Net.HttpStatusCode.BadRequest => BadRequest(dados),
-                    System.Net.HttpStatusCode.InternalServerError => StatusCode(500, dados),
-                    _ => BadRequest(dados)
-                };
-            }
-
-            return Ok(dados);
-        }
-
         [HttpPatch("AtualizarCondominio/{condominioId}")]
         public async Task<IActionResult> EditarCondominio([FromRoute] Guid condominioId, [FromBody] EdicaoCondominioDTO edicaoCondominioDTO)
         {
