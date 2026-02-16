@@ -112,7 +112,7 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Application.Services
 
         public async Task<RetornoGenerico> BuscarTodosOsCondominioAsync(BuscarCondominioPorFiltrosDTO filtros)
         {
-            var condominios = await _condominioRepository.BuscarTodosOsCondominiosAsync(
+            var dadosPaginados = await _condominioRepository.BuscarTodosOsCondominiosAsync(
                 filtros.nome, 
                 filtros.Cnpj,
                 filtros.email,
@@ -126,8 +126,8 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Application.Services
                 filtros.itensPorPagina
                );
 
-            var mensagem = condominios.Count > 0 ? $"{condominios.Count} condominios cadastrados" : "Não há condominios cadastrados";
-            var sucesso = condominios.Count > 0;
+            var mensagem = dadosPaginados.TotalItems > 0 ? $"{dadosPaginados.TotalItems} condominios cadastrados" : "Não há condominios cadastrados";
+            var sucesso = dadosPaginados.TotalItems > 0;
 
             return new RetornoGenerico
             {
@@ -135,7 +135,7 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Application.Services
                 HttpStatusCode =  HttpStatusCode.OK,
                 MensagemSistema = mensagem,
                 MensagemUsuario = mensagem,
-                Dados = condominios
+                Dados = dadosPaginados
             };
         }
 

@@ -1,4 +1,5 @@
-﻿using Gerenciado_de_Usuario_Rapido_Facil.CrossCutting.Util.Enum;
+﻿using Gerenciado_de_Usuario_Rapido_Facil.CrossCutting.Extensions;
+using Gerenciado_de_Usuario_Rapido_Facil.CrossCutting.Util.Enum;
 using Gerenciado_de_Usuario_Rapido_Facil.Domain.Entities;
 
 namespace Gerenciado_de_Usuario_Rapido_Facil.Infra.Data.Interfaces
@@ -9,7 +10,7 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Infra.Data.Interfaces
 
         Task<Condominio?> BuscarPorCodigoVinculacaoAsync(string codigo);
 
-        Task<List<Condominio>> BuscarTodosOsCondominiosAsync(string nome, string email, string cnpj, string codigoVinculacao, string cidade, string estado, bool? ativo, bool? periodoTeste, DateTime? dataCadastro, int pagina, int itensPorPagina);
+        Task<PaginacaoDeResultados> BuscarTodosOsCondominiosAsync(string nome, string email, string cnpj, string codigoVinculacao, string cidade, string estado, bool? ativo, bool? periodoTeste, DateTime? dataCadastro, int pagina, int itensPorPagina);
 
         Task<Condominio?> BuscarUmCondominioAsync(Guid condominioId);
 
