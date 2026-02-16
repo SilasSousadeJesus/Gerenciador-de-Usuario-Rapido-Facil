@@ -127,11 +127,10 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Application.Services
                );
 
             var mensagem = dadosPaginados.TotalItems > 0 ? $"{dadosPaginados.TotalItems} condominios cadastrados" : "Não há condominios cadastrados";
-            var sucesso = dadosPaginados.TotalItems > 0;
 
             return new RetornoGenerico
             {
-                Sucesso = sucesso,
+                Sucesso = true,
                 HttpStatusCode =  HttpStatusCode.OK,
                 MensagemSistema = mensagem,
                 MensagemUsuario = mensagem,
