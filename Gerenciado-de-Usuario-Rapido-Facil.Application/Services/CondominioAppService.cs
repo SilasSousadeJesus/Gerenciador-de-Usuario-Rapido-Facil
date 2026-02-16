@@ -3,10 +3,12 @@ using Gerenciado_de_Usuario_Rapido_Facil.Application.DTOs;
 using Gerenciado_de_Usuario_Rapido_Facil.Application.Interfaces;
 using Gerenciado_de_Usuario_Rapido_Facil.Application.ViewModel;
 using Gerenciado_de_Usuario_Rapido_Facil.CrossCutting.Extensions;
+using Gerenciado_de_Usuario_Rapido_Facil.CrossCutting.Util.Mocks;
 using Gerenciado_de_Usuario_Rapido_Facil.Domain.Entities;
 using Gerenciado_de_Usuario_Rapido_Facil.Infra.Data.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using System;
 using System.Net;
 using System.Text;
 
@@ -20,6 +22,7 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Application.Services
         private readonly IConfiguration _configuration;
         private readonly IHttpAppService _httpAppService;
         private readonly IEmailAppService _emailAppService;
+        private static readonly Random _random = new();
 
         private readonly ITemplateHTMLRepository _templateHTMLRepository;
         public CondominioAppService(
@@ -426,5 +429,101 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Application.Services
                 );
         }
 
+        public async Task<RetornoGenerico> CadastrarCondominiosParaTesteAsync(int quantidade)
+        {
+            var retorno = new RetornoGenerico();
+
+            try
+            {
+                var condominios = new List<Condominio>();
+
+                for (int i = 1; i <= quantidade; i++)
+                {
+                    var numero = i.ToString("D2");
+                    var email = $"condominio{numero}@gmail.com";
+
+                    var emailExiste = await _validacaoParaCadastroUsuario.VerificarEmailExiste(email);
+
+                    if (emailExiste)
+                        continue;
+
+                    var local = LocalizacoesMock.LocalizacoesFake[_random.Next(LocalizacoesMock.LocalizacoesFake.Count)];
+
+                    var condominio = new Condominio
+                    (
+                        nome: $"Condominio {numero}",
+                        senha: HashSenha.HashSenhaUsuario("123456"),
+                        cnpjCpf: $"000000000000{numero}",
+                        email: email,
+                        logo: $"logoCondominio{numero}.png",
+                        ativo: true,
+                        rua: $"Rua Teste {numero}",
+                        bairro: $"Bairro Teste",
+                        cidade: local.Cidade,
+                        estado: local.Estado,
+                        cep: local.Cep
+                    );
+
+                    condominio.GerarCodigoVinculacao();
+                    condominio.ContarCondominos();
+
+                    condominios.Add(condominio);
+                }
+
+                foreach (var condominio in condominios)
+                {
+                    var novoCondominio = await _condominioRepository.CadastrarCondominioAsync(condominio);
+
+                    var url = _configuration.GetSection("CotacaoApi")["CriarCondominio"];
+
+                    if (string.IsNullOrEmpty(url))
+                    {
+                        await DeletarCondominioAsync(novoCondominio.Id);
+
+                        return new RetornoGenerico(
+                            false,
+                            "URL da API de cotação não configurada",
+                            "Erro interno",
+                            HttpStatusCode.InternalServerError
+                        );
+                    }
+
+                    var response = await _httpAppService.PostAsync(
+                        url.Replace("{condominioId}", novoCondominio.Id.ToString())
+                           .Replace("{nome}", novoCondominio.Nome),
+                        null
+                    );
+
+                    if (response is null || !response.IsSuccessStatusCode)
+                    {
+                        await DeletarCondominioAsync(novoCondominio.Id);
+
+                        return new RetornoGenerico(
+                            false,
+                            "Erro ao registrar condomínio na API de cotação",
+                            "Erro ao criar condomínio de teste",
+                            HttpStatusCode.BadRequest
+                        );
+                    }
+                }
+
+                retorno.Sucesso = true;
+                retorno.HttpStatusCode = HttpStatusCode.OK;
+                retorno.MensagemSistema = "Condomínios de teste cadastrados com sucesso";
+                retorno.MensagemUsuario = "Condomínios criados com sucesso";
+
+                return retorno;
+            }
+            catch (Exception ex)
+            {
+                retorno.Sucesso = false;
+                retorno.HttpStatusCode = HttpStatusCode.InternalServerError;
+                retorno.MensagemSistema = ex.ToString();
+                retorno.MensagemUsuario = "Não foi possível criar condomínios de teste";
+                retorno.Dados = null;
+
+                return retorno;
+            }
+        }
     }
 }

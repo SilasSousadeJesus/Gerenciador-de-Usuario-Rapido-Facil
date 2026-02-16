@@ -16,5 +16,6 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Application.Interfaces
         Task<RetornoGenerico> FinalizarPeriodoTeste(Guid condominioId);
         Task<RetornoGenerico> EnviarEmailVincularCondomino(string emailAVincular, Guid usuarioIdRemetente);
         Task<RetornoGenerico> TrocarSenha(Guid condominioId, TrocaSenhaDTO trocaSenhaDTO);
+        Task<RetornoGenerico> CadastrarCondominiosParaTesteAsync(int quantidade);
     }
 }

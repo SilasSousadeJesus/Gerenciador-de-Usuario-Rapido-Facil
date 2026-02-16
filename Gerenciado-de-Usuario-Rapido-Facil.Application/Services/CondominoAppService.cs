@@ -528,6 +528,5 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Application.Services
                 return retorno;
             }
         }
-
     }
 }

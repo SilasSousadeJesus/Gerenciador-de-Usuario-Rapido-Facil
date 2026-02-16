@@ -11,11 +11,13 @@ namespace Usuario_Rapido_Facil.Api.Controllers
         private readonly IEmpresaPrestadoraAppService _empresaPrestadoraService;
         private readonly IServicoAppService _servicoAppServico;
         private readonly ICondominoAppService _condominoAppService;
-        public MocksController(IEmpresaPrestadoraAppService empresaPrestadoraAppService, IServicoAppService servicoAppServico, ICondominoAppService condominoAppService)
+        private readonly ICondominioAppService _condominioAppService;
+        public MocksController(IEmpresaPrestadoraAppService empresaPrestadoraAppService, IServicoAppService servicoAppServico, ICondominoAppService condominoAppService, ICondominioAppService condominioAppService)
         {
             _empresaPrestadoraService = empresaPrestadoraAppService;
             _servicoAppServico = servicoAppServico;
             _condominoAppService = condominoAppService;
+            _condominioAppService = condominioAppService;
         }
 
         [HttpPost("GeracaoDeServicos")]
@@ -58,10 +60,30 @@ namespace Usuario_Rapido_Facil.Api.Controllers
             return Ok(dados);
         }
 
-        [HttpPost("CadastrarCondominoDeTeste/{condominioId}/{numeroDeCondomino}")]
+        [HttpPost("CadastrarCondominosDeTeste/{condominioId}/{numeroDeCondomino}")]
         public async Task<IActionResult> CadastrarCondominoDeTeste([FromRoute] int numeroDeCondomino, [FromRoute] Guid condominioId)
         {
             var dados = await _condominoAppService.CadastrarCondominoParaTesteAsync(condominioId, numeroDeCondomino);
+
+            if (!dados.Sucesso)
+            {
+                return dados.HttpStatusCode switch
+                {
+                    System.Net.HttpStatusCode.Unauthorized => Unauthorized(dados),
+                    System.Net.HttpStatusCode.NotFound => NotFound(dados),
+                    System.Net.HttpStatusCode.BadRequest => BadRequest(dados),
+                    System.Net.HttpStatusCode.InternalServerError => StatusCode(500, dados),
+                    _ => BadRequest(dados)
+                };
+            }
+
+            return Ok(dados);
+        }
+
+        [HttpPost("CadastrarCondominiosDeTeste/{numerosDeCondominios}")]
+        public async Task<IActionResult> CadastrarCondominiosDeTeste([FromRoute] int numerosDeCondominios)
+        {
+            var dados = await _condominioAppService.CadastrarCondominiosParaTesteAsync(numerosDeCondominios);
 
             if (!dados.Sucesso)
             {
