@@ -22,11 +22,11 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Infra.Data.Repositories
 
             if (!string.IsNullOrWhiteSpace(nome)) query = query.Where(c => c.Nome.Contains(nome));
             if (!string.IsNullOrWhiteSpace(email)) query = query.Where(c => c.Email.Contains(email));
-            if (!string.IsNullOrWhiteSpace(cnpj)) query = query.Where(c => c.CnpjCpf == cnpj);
-            if (!string.IsNullOrWhiteSpace(codigoVinculacao)) query = query.Where(c => c.CodigoVinculacao == codigoVinculacao);
-            if (!string.IsNullOrWhiteSpace(cidade)) query = query.Where(c => c.Cidade == cidade);
-            if (!string.IsNullOrWhiteSpace(estado)) query = query.Where(c => c.Estado == estado);
-            if (!string.IsNullOrWhiteSpace(estado)) query = query.Where(c => c.Estado == estado);
+            if (!string.IsNullOrWhiteSpace(cnpj)) query = query.Where(c => c.CnpjCpf.Contains(cnpj));
+            if (!string.IsNullOrWhiteSpace(codigoVinculacao)) query = query.Where(c => c.CodigoVinculacao.Contains(codigoVinculacao));
+            if (!string.IsNullOrWhiteSpace(cidade)) query = query.Where(c => c.Cidade.Contains(cidade));
+            if (!string.IsNullOrWhiteSpace(estado)) query = query.Where(c => c.Estado.Contains(estado));
+
             if (!string.IsNullOrWhiteSpace(ativo)) query = query.Where(c => ativo == "true" ?  c.Ativo == true : c.Ativo == false);
             if (!string.IsNullOrWhiteSpace(periodoTeste)) query = query.Where(c => periodoTeste == "true" ? c.PeriodoTeste == true : c.PeriodoTeste == false);
 

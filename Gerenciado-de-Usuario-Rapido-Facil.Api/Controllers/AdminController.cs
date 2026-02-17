@@ -35,26 +35,5 @@ namespace Usuario_Rapido_Facil.Api.Controllers
 
             return Ok(dados);
         }
-
-        [HttpGet("BuscarUmCondominio/{condominioId}")]
-        public async Task<IActionResult> BuscarUmUsuario([FromRoute] Guid condominioId)
-        {
-
-            var dados = await _condominioAppService.BuscarUmCondominioAsync(condominioId);
-
-            if (!dados.Sucesso)
-            {
-                return dados.HttpStatusCode switch
-                {
-                    System.Net.HttpStatusCode.Unauthorized => Unauthorized(dados),
-                    System.Net.HttpStatusCode.NotFound => NotFound(dados),
-                    System.Net.HttpStatusCode.BadRequest => BadRequest(dados),
-                    System.Net.HttpStatusCode.InternalServerError => StatusCode(500, dados),
-                    _ => BadRequest(dados)
-                };
-            }
-
-            return Ok(dados);
-        }
     }
 }
