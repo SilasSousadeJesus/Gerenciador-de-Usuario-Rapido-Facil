@@ -20,6 +20,7 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Application.Resources.Classes
                         new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Emergência 24h" }
                     }
                 },
+
                 new Servico
                 {
                     Id = Guid.NewGuid(),
@@ -31,17 +32,19 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Application.Resources.Classes
                         new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Limpeza Pós-Evento" }
                     }
                 },
+
                 new Servico
                 {
                     Id = Guid.NewGuid(),
                     Nome = "Segurança Patrimonial",
                     ServicoSubtipos = new List<ServicoSubtipo>
                     {
-                        new ServicoSubtipo {Id = Guid.NewGuid(), Nome = "Ronda Noturna" },
-                        new ServicoSubtipo {Id = Guid.NewGuid(), Nome = "Monitoramento por Câmeras" },
-                        new ServicoSubtipo {Id = Guid.NewGuid(), Nome = "Controle de Acesso" }
+                        new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Ronda Noturna" },
+                        new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Monitoramento por Câmeras" },
+                        new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Controle de Acesso" }
                     }
                 },
+
                 new Servico
                 {
                     Id = Guid.NewGuid(),
@@ -54,6 +57,7 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Application.Resources.Classes
                         new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Irrigação" }
                     }
                 },
+
                 new Servico
                 {
                     Id = Guid.NewGuid(),
@@ -65,6 +69,7 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Application.Resources.Classes
                         new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Reciclagem" }
                     }
                 },
+
                 new Servico
                 {
                     Id = Guid.NewGuid(),
@@ -76,6 +81,7 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Application.Resources.Classes
                         new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Controle de Insetos" }
                     }
                 },
+
                 new Servico
                 {
                     Id = Guid.NewGuid(),
@@ -87,6 +93,7 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Application.Resources.Classes
                         new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Reparos Estruturais" }
                     }
                 },
+
                 new Servico
                 {
                     Id = Guid.NewGuid(),
@@ -98,6 +105,7 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Application.Resources.Classes
                         new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Gestão de Contratos" }
                     }
                 },
+
                 new Servico
                 {
                     Id = Guid.NewGuid(),
@@ -109,6 +117,7 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Application.Resources.Classes
                         new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Atendimento a Moradores" }
                     }
                 },
+
                 new Servico
                 {
                     Id = Guid.NewGuid(),
@@ -120,6 +129,7 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Application.Resources.Classes
                         new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Instalação de Equipamentos" }
                     }
                 },
+
                 new Servico
                 {
                     Id = Guid.NewGuid(),
@@ -131,6 +141,7 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Application.Resources.Classes
                         new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Instalação de Torneiras" }
                     }
                 },
+
                 new Servico
                 {
                     Id = Guid.NewGuid(),
@@ -140,6 +151,133 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Application.Resources.Classes
                         new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Pequenos Reparos" },
                         new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Pintura" },
                         new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Troca de Vidros" }
+                    }
+                },
+
+                new Servico
+                {
+                    Id = Guid.NewGuid(),
+                    Nome = "Manutenção de Ar Condicionado",
+                    ServicoSubtipos = new List<ServicoSubtipo>
+                    {
+                        new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Limpeza de Filtros" },
+                        new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Carga de Gás" },
+                        new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Higienização" },
+                        new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Reparo Técnico" }
+                    }
+                },
+
+                new Servico
+                {
+                    Id = Guid.NewGuid(),
+                    Nome = "Sistema de Combate a Incêndio",
+                    ServicoSubtipos = new List<ServicoSubtipo>
+                    {
+                        new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Recarga de Extintores" },
+                        new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Teste de Hidrantes" },
+                        new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Inspeção de Alarmes" },
+                        new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Plano de Emergência" }
+                    }
+                },
+
+                new Servico
+                {
+                    Id = Guid.NewGuid(),
+                    Nome = "Manutenção de CFTV",
+                    ServicoSubtipos = new List<ServicoSubtipo>
+                    {
+                        new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Instalação de Câmeras" },
+                        new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Manutenção de DVR/NVR" },
+                        new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Configuração de Acesso Remoto" },
+                        new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Troca de Equipamentos" }
+                    }
+                },
+
+                new Servico
+                {
+                    Id = Guid.NewGuid(),
+                    Nome = "Controle de Acesso Eletrônico",
+                    ServicoSubtipos = new List<ServicoSubtipo>
+                    {
+                        new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Instalação de Biometria" },
+                        new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Cartões RFID" },
+                        new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Manutenção de Cancelas" },
+                        new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Interfones" }
+                    }
+                },
+
+                new Servico
+                {
+                    Id = Guid.NewGuid(),
+                    Nome = "Manutenção de Portões Automáticos",
+                    ServicoSubtipos = new List<ServicoSubtipo>
+                    {
+                        new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Troca de Motores" },
+                        new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Ajuste de Sensores" },
+                        new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Lubrificação" },
+                        new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Reparo de Trilhos" }
+                    }
+                },
+
+                new Servico
+                {
+                    Id = Guid.NewGuid(),
+                    Nome = "Manutenção Predial",
+                    ServicoSubtipos = new List<ServicoSubtipo>
+                    {
+                        new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Inspeção Estrutural" },
+                        new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Reparos em Fachada" },
+                        new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Impermeabilização" },
+                        new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Manutenção de Telhado" }
+                    }
+                },
+
+                new Servico
+                {
+                    Id = Guid.NewGuid(),
+                    Nome = "Limpeza de Caixa d'Água",
+                    ServicoSubtipos = new List<ServicoSubtipo>
+                    {
+                        new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Higienização" },
+                        new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Desinfecção" },
+                        new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Inspeção Sanitária" }
+                    }
+                },
+
+                new Servico
+                {
+                    Id = Guid.NewGuid(),
+                    Nome = "Manutenção de Geradores",
+                    ServicoSubtipos = new List<ServicoSubtipo>
+                    {
+                        new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Teste de Carga" },
+                        new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Troca de Óleo" },
+                        new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Reparo Elétrico" },
+                        new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Revisão Preventiva" }
+                    }
+                },
+
+                new Servico
+                {
+                    Id = Guid.NewGuid(),
+                    Nome = "Facilities",
+                    ServicoSubtipos = new List<ServicoSubtipo>
+                    {
+                        new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Zeladoria" },
+                        new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Recepção" },
+                        new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Apoio Operacional" }
+                    }
+                },
+
+                new Servico
+                {
+                    Id = Guid.NewGuid(),
+                    Nome = "Paisagismo",
+                    ServicoSubtipos = new List<ServicoSubtipo>
+                    {
+                        new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Projeto de Jardim" },
+                        new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Reforma de Áreas Verdes" },
+                        new ServicoSubtipo { Id = Guid.NewGuid(), Nome = "Jardim Vertical" }
                     }
                 }
             };

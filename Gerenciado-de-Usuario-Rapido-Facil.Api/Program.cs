@@ -75,12 +75,15 @@ namespace Usuario_Rapido_Facil.Api
 
             builder.Services.AddCors(options =>
             {
-                options.AddDefaultPolicy(builder =>
+                options.AddDefaultPolicy(policy =>
                 {
-                    builder.WithOrigins("https://rapido-facil-front-end-production.up.railway.app")
-                           .AllowAnyMethod()
-                           .AllowAnyHeader()
-                           .AllowCredentials();
+                    policy.WithOrigins(
+                            "https://rapido-facil-front-end-production.up.railway.app",
+                            "http://localhost:3003"
+                        )
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials();
                 });
             });
 
