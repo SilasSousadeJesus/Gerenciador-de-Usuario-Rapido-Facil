@@ -343,11 +343,13 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Application.Services
                 }
             }
 
+            var servicosComuns = ObterServicosComSubtiposComuns(prestadores);
+
             return new RetornoGenerico(true,
                 "Prestadores e serviços qualificados para cotação",
                 "Prestadores e serviços qualificados para cotação",
                 HttpStatusCode.OK,
-                null
+                servicosComuns
             );
         }
 
@@ -651,6 +653,77 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Application.Services
             }
 
             return new HashSet<Guid>(prestador.Servicos.Select(s => s.Id));
+        }
+
+        private static List<viewModel> ObterServicosComSubtiposComuns(List<EmpresaPrestadoraComServicoESubServico> prestadores)
+        {
+            var resultado = new List<viewModel>();
+
+            if (prestadores == null || prestadores.Count == 0)
+            {
+                return resultado;
+            }
+
+            var conjuntosServicos = prestadores
+                .Select(p => p.Servicos?.Select(s => s.Id).ToHashSet() ?? new HashSet<Guid>())
+                .ToList();
+
+            var servicoIdsComuns = new HashSet<Guid>(conjuntosServicos.First());
+            foreach (var conjunto in conjuntosServicos.Skip(1))
+            {
+                servicoIdsComuns.IntersectWith(conjunto);
+            }
+
+            var prestadorReferencia = prestadores[0];
+
+            foreach (var servicoId in servicoIdsComuns)
+            {
+                var servicoReferencia = prestadorReferencia.Servicos.FirstOrDefault(s => s.Id == servicoId);
+                if (servicoReferencia == null)
+                {
+                    continue;
+                }
+
+                var conjuntosSubtipos = prestadores
+                    .Select(p => p.Servicos.FirstOrDefault(s => s.Id == servicoId)?.ServicoSubtipos
+                        ?.Select(st => st.Id)
+                        .ToHashSet() ?? new HashSet<Guid>())
+                    .ToList();
+
+                var subtiposComuns = new HashSet<Guid>(conjuntosSubtipos.First());
+                foreach (var conjunto in conjuntosSubtipos.Skip(1))
+                {
+                    subtiposComuns.IntersectWith(conjunto);
+                }
+
+                var listaSubtipos = new List<SubTipo>();
+                foreach (var subtipoId in subtiposComuns)
+                {
+                    var subtipoReferencia = servicoReferencia.ServicoSubtipos.FirstOrDefault(s => s.Id == subtipoId);
+                    if (subtipoReferencia == null)
+                    {
+                        continue;
+                    }
+
+                    listaSubtipos.Add(new SubTipo
+                    {
+                        ServicoSubtipoId = subtipoReferencia.Id,
+                        Nome = subtipoReferencia.Nome,
+                        ServicoId = servicoReferencia.Id,
+                        EmpresaPrestadoraId = Guid.Empty
+                    });
+                }
+
+                resultado.Add(new viewModel
+                {
+                    ServicoId = servicoReferencia.Id,
+                    Nome = servicoReferencia.Nome,
+                    EmpresaPrestadoraId = Guid.Empty,
+                    ServicosSubtipos = listaSubtipos
+                });
+            }
+
+            return resultado;
         }
     }
 }
