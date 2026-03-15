@@ -14,5 +14,6 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Infra.Data.Interfaces
         Task EditarEmpresaAsync(EmpresaPrestadora empresaPrestadora);
         Task<PaginacaoDeResultados> BuscarPrestadorPorFiltros(string nome, string cidade, string estado, int pagina, int itensPorPagina, Guid servicoId, List<Guid> servicoSubtipoIds);
         Task<EmpresaPrestadoraComServicoESubServico?> BuscarPrestadorPorEmail(string email);
+        Task<List<EmpresaPrestadoraComServicoESubServico>> BuscarPrestadoresPorIds(List<Guid> prestadoresIds);
     }
 }

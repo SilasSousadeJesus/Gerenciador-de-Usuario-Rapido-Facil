@@ -288,6 +288,69 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Application.Services
             };
         }
 
+        public async Task<RetornoGenerico> BuscarPrestadoresPorIds(List<Guid> prestadoresIds)
+        {
+            if (prestadoresIds is null || prestadoresIds.Count == 0)
+            {
+                return new RetornoGenerico(false,
+                    "Lista de prestadores não informada",
+                    "Lista de prestadores não informada",
+                    HttpStatusCode.BadRequest,
+                    null
+                );
+            }
+
+            var idsUnicos = prestadoresIds.Distinct().ToList();
+            var prestadores = await _empresaPrestadoraRepository.BuscarPrestadoresPorIds(idsUnicos);
+
+            if (prestadores.Count == 0)
+            {
+                return new RetornoGenerico(false,
+                    "Prestadores não encontrados",
+                    "Prestadores não encontrados",
+                    HttpStatusCode.NotFound,
+                    null
+                );
+            }
+
+            if (prestadores.Count != idsUnicos.Count)
+            {
+                return new RetornoGenerico(false,
+                    "Um ou mais prestadores não foram encontrados",
+                    "Um ou mais prestadores não foram encontrados",
+                    HttpStatusCode.NotFound,
+                    null
+                );
+            }
+
+            if (prestadores.Count > 1)
+            {
+                var referenciaServicos = ObterIdsServicos(prestadores[0]);
+
+                foreach (var prestador in prestadores.Skip(1))
+                {
+                    var servicosPrestador = ObterIdsServicos(prestador);
+
+                    if (!referenciaServicos.SetEquals(servicosPrestador))
+                    {
+                        return new RetornoGenerico(false,
+                            "Não é possivel fazer cotação para serviços distintos",
+                            "Não é possivel fazer cotação para serviços distintos",
+                            HttpStatusCode.BadRequest,
+                            null
+                        );
+                    }
+                }
+            }
+
+            return new RetornoGenerico(true,
+                "Prestadores e serviços qualificados para cotação",
+                "Prestadores e serviços qualificados para cotação",
+                HttpStatusCode.OK,
+                null
+            );
+        }
+
         public async Task<RetornoGenerico> FinalizarCadastroEmpresaPrestadora(Guid empresaId, FinalizarCadastroEmpresaPrestadora finalizarCadastro)
         {
             var buscaEmpresa = await BuscarEmpresaCompletoAsync(empresaId);
@@ -578,6 +641,16 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Application.Services
                     HttpStatusCode.OK,
                     null
                 );
+        }
+
+        private static HashSet<Guid> ObterIdsServicos(EmpresaPrestadoraComServicoESubServico prestador)
+        {
+            if (prestador?.Servicos == null || prestador.Servicos.Count == 0)
+            {
+                return new HashSet<Guid>();
+            }
+
+            return new HashSet<Guid>(prestador.Servicos.Select(s => s.Id));
         }
     }
 }

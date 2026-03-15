@@ -12,6 +12,7 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Application.Interfaces
         Task<RetornoGenerico> DeletarEmpresaAsync(Guid empresaId);
         Task<RetornoGenerico> EditarEmpresaAsync(Guid empresaId, EmpresaPrestadoraAtualizacaoDTO edicaoEmpresaDTO);
         Task<RetornoGenerico> BuscarPrestadorPorFiltros(BuscarPrestadorPorFiltrosDTO filtros);
+        Task<RetornoGenerico> BuscarPrestadoresPorIds(List<Guid> prestadoresIds);
         Task<RetornoGenerico> FinalizarCadastroEmpresaPrestadora(Guid empresaId, FinalizarCadastroEmpresaPrestadora finalizarCadastro);
         Task<dynamic> BuscarEmpresaPorEmailAsync(string email);
         Task<RetornoGenerico> CadastrarEmpresasParaTesteAsync(int numeroDePrestadores);

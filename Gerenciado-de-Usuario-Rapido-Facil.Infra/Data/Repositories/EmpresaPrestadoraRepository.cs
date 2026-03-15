@@ -348,5 +348,88 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Infra.Data.Repositories
 
         }
 
+        public async Task<List<EmpresaPrestadoraComServicoESubServico>> BuscarPrestadoresPorIds(List<Guid> prestadoresIds)
+        {
+            var empresas = await _context.EmpresaPrestadora
+                .Where(x => prestadoresIds.Contains(x.Id))
+                .Include(x => x.EmpresaPrestadoraServicoSubtipos)
+                .ToListAsync();
+
+            var listaEmpresaComServicos = new List<EmpresaPrestadoraComServicoESubServico>();
+
+            foreach (var empresa in empresas)
+            {
+                var empresaCorrente = new EmpresaPrestadoraComServicoESubServico()
+                {
+                    Ativo = empresa.Ativo,
+                    Bairro = empresa.Bairro,
+                    Cidade = empresa.Cidade,
+                    CnpjCpf = empresa.CnpjCpf,
+                    Email = empresa.Email,
+                    Estado = empresa.Estado,
+                    Id = empresa.Id,
+                    Logo = empresa.Logo,
+                    Nome = empresa.Nome,
+                    Rua = empresa.Rua,
+                    Senha = string.Empty,
+                    Cep = empresa.Cep,
+                    Servicos = new List<Servico>()
+                };
+
+                if (empresa.EmpresaPrestadoraServicoSubtipos.Any())
+                {
+                    foreach (var item in empresa.EmpresaPrestadoraServicoSubtipos)
+                    {
+                        item.EmpresaPrestadora = null; // Remove a referência circular.
+                    }
+
+                    var servicosAgrupadosporId = empresa.EmpresaPrestadoraServicoSubtipos
+                                                      .GroupBy(x => x.ServicoId)
+                                                      .ToList();
+
+                    foreach (var grupo in servicosAgrupadosporId)
+                    {
+                        var idservico = Guid.Parse(grupo.Key.ToString());
+                        var servico = _context.Servicos.FirstOrDefault(x => x.Id == idservico);
+
+                        if (servico != null)
+                        {
+                            var servicoSubTiposID = grupo.Select(x => x.ServicoSubtipoId).Distinct().ToList();
+
+                            var servicoSubTipos = _context.ServicoSubtipos
+                                                          .Where(s => servicoSubTiposID.Contains(s.Id))
+                                                          .ToList();
+
+                            foreach (var sub in servicoSubTipos)
+                            {
+                                if (!servico.ServicoSubtipos.Any(s => s.Id == sub.Id))
+                                {
+                                    servico.ServicoSubtipos.Add(sub);
+                                }
+                            }
+
+                            if (!empresaCorrente.Servicos.Any(s => s.Id == servico.Id))
+                            {
+                                empresaCorrente.Servicos.Add(servico);
+                            }
+                        }
+                    }
+                }
+
+                foreach (var item in empresaCorrente.Servicos)
+                {
+                    item.EmpresaPrestadoraServicos = null;
+
+                    foreach (var sub in item.ServicoSubtipos)
+                    {
+                        sub.EmpresaPrestadoraServicoSubtipos = null;
+                    }
+                }
+
+                listaEmpresaComServicos.Add(empresaCorrente);
+            }
+
+            return listaEmpresaComServicos;
+        }
     }
 }
