@@ -51,6 +51,9 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Domain.Entities
         public string Estado { get; set; } = string.Empty;
         public string Logo { get; set; } = string.Empty;
         public string Cep { get; set; } = string.Empty;
+        public string Complemento { get; set; } = string.Empty;
+        public string PontoReferencia { get; set; } = string.Empty;
+        public string NumeroEndereco { get; set; } = string.Empty;
         public DateTime DataCadastro { get; set; } = DateTime.Now;
         public bool AceitouTermosDeUso { get; set; } = false;
 

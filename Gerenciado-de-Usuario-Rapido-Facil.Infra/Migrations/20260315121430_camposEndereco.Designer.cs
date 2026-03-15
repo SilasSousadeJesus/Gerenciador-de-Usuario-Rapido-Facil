@@ -4,6 +4,7 @@ using Gerenciado_de_Usuario_Rapido_Facil.Infra;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gerenciado_de_Usuario_Rapido_Facil.Infra.Migrations
 {
     [DbContext(typeof(GerenciadorUsuarioDbContext))]
-    partial class GerenciadorUsuarioDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260315121430_camposEndereco")]
+    partial class camposEndereco
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

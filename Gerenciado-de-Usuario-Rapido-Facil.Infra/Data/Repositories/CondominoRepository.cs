@@ -93,7 +93,12 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Infra.Data.Repositories
                     Vinculado = c.Vinculado,
                     Cep = c.Cep,
                     CodigoVinculacao = c.CodigoVinculacao,
-                    CondominioId = c.CondominioId
+                    CondominioId = c.CondominioId,
+                    PontoReferencia = c.PontoReferencia,
+                    Complemento = c.Complemento,
+                    NumeroEndereco = c.NumeroEndereco,
+                    Apartamento = c.Apartamento,
+                    AceitouTermosDeUso = c.AceitouTermosDeUso,
                 })
                 .FirstOrDefaultAsync();
         }

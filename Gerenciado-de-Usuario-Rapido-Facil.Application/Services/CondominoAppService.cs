@@ -185,7 +185,10 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Application.Services
                         Cidade = condominio.Cidade,
                         Estado = condominio.Estado,
                         Cep = condominio.Cep,
-                        Senha = string.Empty
+                        Senha = string.Empty,
+                        Complemento = condominio.Complemento,
+                        PontoReferencia = condominio.PontoReferencia,
+                        NumeroEndereco = condominio.NumeroEndereco,                    
                     };
                 }
             }
@@ -206,7 +209,10 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Application.Services
                 Vinculado = condomino.Vinculado,
                 CodigoVinculacao = condomino.CodigoVinculacao,
                 CondominioId = condomino.CondominioId,
-                Condominio = condominioViewModel
+                Condominio = condominioViewModel,
+                Complemento = condomino.Complemento,
+                PontoReferencia = condomino.PontoReferencia,
+                NumeroEndereco = condomino.NumeroEndereco,
             };
 
             return new RetornoGenerico

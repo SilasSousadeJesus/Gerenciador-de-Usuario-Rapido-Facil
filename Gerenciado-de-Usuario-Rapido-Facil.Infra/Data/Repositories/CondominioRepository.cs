@@ -49,7 +49,11 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Infra.Data.Repositories
                     Rua = c.Rua,
                     Bairro = c.Bairro,
                     Cidade = c.Cidade,
-                    Estado = c.Estado
+                    Estado = c.Estado,
+                    NumeroEndereco = c.NumeroEndereco,
+                    Complemento = c.Complemento,
+                    AceitouTermosDeUso = c.AceitouTermosDeUso,
+                    PontoReferencia = c.PontoReferencia,
                 })
                 .Skip((pagina - 1) * itensPorPagina)
                 .Take(itensPorPagina)
@@ -75,6 +79,14 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Infra.Data.Repositories
                 Cidade = c.Cidade,
                 Estado = c.Estado,
                  Cep = c.Cep,
+              Complemento = c.Complemento,
+              PontoReferencia = c.PontoReferencia,
+              NumeroEndereco = c.NumeroEndereco,
+              DataCadastro = c.DataCadastro,
+              AceitouTermosDeUso = c.AceitouTermosDeUso,
+              PeriodoTeste = c.PeriodoTeste,
+              PorteCondominio = c.PorteCondominio,
+              Logo = c.Logo
           }).FirstOrDefaultAsync();
         }
 
@@ -95,6 +107,14 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Infra.Data.Repositories
               Cidade = c.Cidade,
               Estado = c.Estado,
               Cep = c.Cep,
+                Complemento = c.Complemento,
+                PontoReferencia = c.PontoReferencia,
+                NumeroEndereco = c.NumeroEndereco,
+                DataCadastro = c.DataCadastro,
+                AceitouTermosDeUso = c.AceitouTermosDeUso,
+                PeriodoTeste = c.PeriodoTeste,
+                PorteCondominio = c.PorteCondominio,
+                Logo = c.Logo
           }).FirstOrDefaultAsync();
         }
         public async Task<Condominio?> CadastrarCondominioAsync(Condominio condominio)
@@ -161,7 +181,16 @@ namespace Gerenciado_de_Usuario_Rapido_Facil.Infra.Data.Repositories
                 Bairro = c.Bairro,
                 Cidade = c.Cidade,
                 Estado = c.Estado,
-                CondominioId = condominioId
+                CondominioId = condominioId,
+                Cep = c.Cep,
+                Apartamento = c.Apartamento,
+                Complemento = c.Complemento,
+                PontoReferencia = c.PontoReferencia,
+                NumeroEndereco = c.NumeroEndereco,
+                DataCadastro = c.DataCadastro,
+                AceitouTermosDeUso = c.AceitouTermosDeUso,
+                Vinculado = c.Vinculado,
+                PlanoValido = c.PlanoValido
             }).ToList();
 
             return condominos;
